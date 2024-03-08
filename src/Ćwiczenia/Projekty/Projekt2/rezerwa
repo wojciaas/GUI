@@ -1,0 +1,69 @@
+default boolean isKingUnderAttack(int sourceX, int sourceY, int destX, int destY, HashMap<Integer, PieceAbs> board){
+        int indexSource = (sourceY - 1) * 8 + sourceX;
+        int indexDest = (destY - 1) * 8 + destX;
+        PieceAbs source = board.get(indexSource);
+        boolean isKingUnderAttack = false;
+        if (board.get(indexDest) != null && board.get(indexSource).isMoveValid(sourceX, sourceY, destX, destY, board)){
+            PieceAbs dest = board.get(indexDest);
+            board.remove(indexDest);
+            board.put(indexDest, source);
+            board.remove(indexSource);
+            isKingUnderAttack = isKingInCheck(destX, destY, board);
+            board.remove(indexDest);
+            board.put(indexDest, dest);
+            board.put(indexSource, source);
+        } else if (board.get(indexSource).isMoveValid(sourceX, sourceY, destX, destY, board)){
+            board.put(indexDest, source);
+            board.remove(indexSource);
+            isKingUnderAttack = isKingInCheck(destX, destY, board);
+            board.remove(indexDest);
+            board.put(indexSource, source);
+        }
+        return isKingUnderAttack;
+    }
+
+    default boolean isKingInCheck(int kingX, int kingY, HashMap<Integer, PieceAbs> board){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 1; j < 9; j++) {
+                if (board.get(i * 8 + j) != null && !board.get(i * 8 + j).getColor().equals(Game.getColorTurn())){
+                    if (
+                            board.get(i * 8 + j).isMoveValid(board.get(i * 8 + j).getX(), board.get(i * 8 + j).getY(),
+                            kingX, kingY, board)
+                    )
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    default boolean isKingInCheckMate(HashMap<Integer, PieceAbs> board){
+        int kingX = wheresKing(board) % 8 == 0 ? 8 : wheresKing(board) % 8;
+        int kingY = wheresKing(board) / 8 == 8 ? 8 : wheresKing(board) / 8 + 1;
+        for (int i = -1; i < 2; i++){
+            for (int j = -1; j < 2; j++){
+                if (kingX + j > 0 && kingX + j < 9 && kingY + i > 0 && kingY + i < 9){
+                    if (isMoveValid(kingX, kingY, kingX + j, kingY + i, board) && !isKingUnderAttack(kingX, kingY, kingX + j, kingY + i, board))
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    default int wheresKing(HashMap<Integer, PieceAbs> board){
+        int kingX = 0;
+        int kingY = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 1; j < 9; j++) {
+                if (
+                        board.get(i * 8 + j) != null && board.get(i * 8 + j).getType().equals(PieceAbs.Type.KING) &&
+                        board.get(i * 8 + j).getColor().equals(Game.getColorTurn())
+                ){
+                    kingX = board.get(i * 8 + j).getX();
+                    kingY = board.get(i * 8 + j).getY();
+                }
+            }
+        }
+        return (kingY - 1) * 8 + kingX;
+    }

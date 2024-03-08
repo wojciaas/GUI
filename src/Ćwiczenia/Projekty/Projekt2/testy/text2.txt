@@ -1,0 +1,36 @@
+Kroki do wykonania:
+Zaprojektuj strukturę klas i interfejsów.
+Stwórz bazowy interfejs Piece z metodami:
+boolean isMoveValid(int x, int y)
+void move(int x, int y)
+String getSymbol()
+boolean isWhite()
+Stwórz klasy dla poszczególnych figur, które implementują interfejs Piece:
+King
+Queen
+Rook
+Bishop
+Knight
+Pawn
+Stwórz klasę Board.
+Klasa Board powinna przechowywać informacje o planszy i figurach, a także posiadać metody służące do obsługi gry, np.:
+void initializeBoard()
+boolean movePiece(int startX, int startY, int endX, int endY)
+boolean isCheck()
+boolean isCheckmate()
+Zaimplementuj logikę gry.
+Należy zaimplementować logikę sprawdzającą poprawność ruchów dla poszczególnych figur oraz mechanizmy wykrywające szach i szach mat.
+Zaimplementuj część wizualną.
+Stwórz klasę ChessGame, która będzie zarządzać komunikacją z użytkownikiem oraz wyświetlać planszę z figurami.
+Dodaj obsługę zapisu i odczytu planszy do pliku binarnego.
+W klasie Board dodaj metody:
+void saveBoard(String filePath)
+void loadBoard(String filePath)
+Wskazówki:
+Wykorzystaj klasy abstrakcyjne, które określają wspólne właściwości i zachowania dla figur, np. klasy AbstractPiece, która implementuje część metod interfejsu Piece.
+Użyj wyrażeń lambda do tworzenia funkcji anonimowych, np. do przeszukiwania planszy w poszukiwaniu określonej figury.
+W klasie Board, przechowuj planszę jako dwuwymiarową tablicę obiektów typu Piece.
+Przy implementacji metody isCheck(), sprawdź, czy król jest zagrożony przez jakąkolwiek inną figurę na planszy.
+Przy implementacji metody isCheckmate(), sprawdź, czy król nie ma możliwości wyjścia z szachu.
+Przy zapisie i odczytaniu planszy do pliku binarnego, stosuj się do formatu opisanego w treści zadania.
+Przykładowe rozwiązanie powinno pozwolić na grę w szachy zgodnie z zasadami, a także na zapisywanie i wczytywanie stanu gry z plików binarnych.

@@ -1,0 +1,129 @@
+Przedstawiam przykładowe rozwiązanie zadania. W celu uproszczenia, przedstawione zostanie tylko podstawowe rozwiązanie bez implementacji zapisu i odczytu z pliku binarnego.
+
+Klasy i interfejsy:
+
+Interfejs Piece - reprezentuje ogólne zachowanie figur.
+Klasa Board - reprezentuje szachownicę.
+Klasy King, Queen, Rook, Bishop, Knight, Pawn - reprezentują poszczególne figury szachowe.
+Interfejs Piece:
+
+public interface Piece {
+    boolean isMoveValid(int destX, int destY, Board board);
+
+    void move(int destX, int destY, Board board);
+
+    char getSymbol();
+
+    boolean isWhite();
+}
+Klasa Board:
+
+public class Board {
+    private Piece[][] board;
+
+    public Board() {
+        board = new Piece[8][8];
+        // Inicjalizuj planszę
+    }
+
+    public boolean isMoveValid(int srcX, int srcY, int destX, int destY) {
+        Piece piece = board[srcY][srcX];
+        return piece != null && piece.isMoveValid(destX, destY, this);
+    }
+
+    public void move(int srcX, int srcY, int destX, int destY) {
+        if (isMoveValid(srcX, srcY, destX, destY)) {
+            Piece piece = board[srcY][srcX];
+            piece.move(destX, destY, this);
+            board[destY][destX] = piece;
+            board[srcY][srcX] = null;
+        }
+    }
+
+    public Piece getPiece(int x, int y) {
+        return board[y][x];
+    }
+}
+Klasa abstrakcyjna AbstractPiece:
+
+public abstract class AbstractPiece implements Piece {
+    private int x;
+    private int y;
+    private boolean white;
+
+    public AbstractPiece(int x, int y, boolean white) {
+        this.x = x;
+        this.y = y;
+        this.white = white;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    @Override
+    public void move(int destX, int destY, Board board) {
+        setX(destX);
+        setY(destY);
+    }
+
+    @Override
+    public boolean isWhite() {
+        return white;
+    }
+}
+Przykład klasy konkretnej (King):
+
+public class King extends AbstractPiece {
+    public King(int x, int y, boolean white) {
+        super(x, y, white);
+    }
+
+    @Override
+    public boolean isMoveValid(int destX, int destY, Board board) {
+        int xDiff = Math.abs(destX - getX());
+        int yDiff = Math.abs(destY - getY());
+
+        return (xDiff <= 1 && yDiff <= 1);
+    }
+
+    @Override
+    public char getSymbol() {
+        return isWhite() ? 'K' : 'k';
+    }
+}
+Kod do wyświetlania planszy:
+
+public class ChessGame {
+    public static void main(String[] args) {
+        Board board = new Board();
+        // Dodaj figury do planszy
+        printBoard(board);
+    }
+
+    public static void printBoard(Board board) {
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                Piece piece = board.getPiece(x, y);
+                if (piece != null) {
+                    System.out.print(piece.getSymbol() + " ");
+                } else {
+                    System.out.print(". ");
+                }
+            }
+            System.out.println();
+        }
+    }
+}

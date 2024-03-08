@@ -1,0 +1,38 @@
+Rozwiązanie zadania można podzielić na kilka etapów:
+
+Projektowanie struktury klas i interfejsów
+Implementacja logiki gry
+Implementacja części wizualnej
+Implementacja zapisu i odczytu stanu gry
+
+1. Projektowanie struktury klas i interfejsów
+Zacznijmy od stworzenia struktury klas i interfejsów, które będą reprezentować różne elementy gry w szachy. Możemy zdefiniować następujące klasy i interfejsy:
+
+Interfejs Piece reprezentujący bierki szachowe
+Klasa abstrakcyjna AbstractPiece implementująca Piece i definiująca wspólne właściwości dla różnych typów bierek
+Klasy dziedziczące po AbstractPiece: King, Queen, Rook, Bishop, Knight, Pawn
+Klasa Board reprezentująca planszę do gry
+Klasa Game reprezentująca logikę gry
+Klasa TextUI reprezentująca tekstową reprezentację gry
+
+2. Implementacja logiki gry
+W tej części zadania należy zaimplementować logikę gry, taką jak:
+
+Mechanika ruchu dla każdej z bierek
+Mechanizmy sprawdzające, czy dany ruch jest dozwolony
+Mechanizmy wykrywające szach i szach-mat
+Ogólna logika gry, np. zmiana graczy po wykonaniu ruchu
+
+3. Implementacja części wizualnej
+W części wizualnej, należy stworzyć klasę TextUI, która będzie odpowiedzialna za wyświetlanie planszy z pionami i figurami. Możemy wykorzystać np. znaki ASCII do reprezentacji poszczególnych bierek na planszy.
+
+4. Implementacja zapisu i odczytu stanu gry
+Aby zapewnić możliwość zapisywania i odczytywania stanu gry w postaci pliku binarnego, należy zaimplementować odpowiednie metody w klasie Game. Specyfikacja formatu pliku została opisana w treści zadania.
+
+Przykładowe wskazówki i kroki
+Stwórz interfejs Piece z metodami do obsługi ruchów, sprawdzania czy ruch jest dozwolony, itp.
+Zaimplementuj klasę abstrakcyjną AbstractPiece i klasy dziedziczące po niej (King, Queen, Rook, Bishop, Knight, Pawn), definiując dla nich odpowiednie metody i właściwości.
+Zaimplementuj klasę Board, która będzie przechowywać stan planszy oraz metody do manipulacji bierek na planszy.
+Zaimplementuj klasę Game odpowiedzialną za logikę gry oraz zapis i odczyt stanu gry z pliku binarnego.
+Zaimplementuj klasę TextUI do wyświetlania stanu gry w formie tekstowej.
+Pamiętaj o zachowaniu dobrych praktyk programowania obiektowego, takich jak enkapsulacja, dziedziczenie i polimorfizm.

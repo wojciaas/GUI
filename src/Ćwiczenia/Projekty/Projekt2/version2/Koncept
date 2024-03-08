@@ -1,0 +1,10 @@
+Klasa Board:
+    - atrybuty:
+        - składa się z 64 pól klasy Piece
+    - metoda __init__ - tworzy planszę o wielkości 8 x 8
+    - metoda __str__ - zwraca string z planszą
+
+Klasa Piece:
+    - atrybuty:
+        - posiada pola X i Y potrzebne do zapisu w pliku binarnym
+        -

@@ -1,0 +1,10 @@
+VBD:
+    - VBDPanel odpowiedzialny za reprezentacje graficzna
+    - VBDDevice odpowiedzialny za reprezentacje logiczną urządzenia
+    - VBDInter - odpowiedzialny za komunikację pomiędzy klasami
+
+VRD:
+    - VRDPanel odpowiedzialny za reprezentacje graficzna
+    - VRDDevice odpowiedzialny za reprezentacje logiczną urządzenia
+    - VRDInter - odpowiedzialny za komunikację pomiędzy klasami
+
